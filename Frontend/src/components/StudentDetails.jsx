@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import "../index.css";
 
 const StudentDetails = () => {
   const { id } = useParams();
@@ -10,48 +11,48 @@ const StudentDetails = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setError(null);  
-    setLoading(true);  
+    setError(null);
+    setLoading(true);
 
-     
     axios
       .get(`http://localhost:8080/students/${id}`)
       .then((response) => {
         const studentData = response.data;
-        setStudent(studentData);  
+        setStudent(studentData);
         return axios.get(`http://localhost:8080/students/${id}/notes`);
       })
       .then((response) => {
-        setGrades(response.data); 
+        setGrades(response.data);
         setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching student details or grades:", error);
         setError("Student not found");
-        setLoading(false); 
+        setLoading(false);
       });
   }, [id]);
- 
+
   if (loading) {
-    return <div>Loading...</div>;
-  }
- 
-  if (error) {
-    return <div>{error}</div>;
+    return <div className="loading">Loading...</div>;
   }
 
- 
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
+
   if (!student) {
-    return <div>No student data found.</div>;
+    return <div className="no-data">No student data found.</div>;
   }
 
   return (
-    <div>
-      <h1>{student?.name}'s Grades</h1>
-      {grades.length === 0 && <p>No grades available for this student.</p>}
+    <div className="student-details-container">
+      <h1 className="title">{student?.name}'s Grades</h1>
+      {grades.length === 0 && (
+        <p className="no-grades">No grades available for this student.</p>
+      )}
 
       {grades.length > 0 && (
-        <table border="1" cellPadding="10">
+        <table className="grades-table">
           <thead>
             <tr>
               <th>Course</th>
@@ -62,10 +63,7 @@ const StudentDetails = () => {
             {grades.map((note) => (
               <tr
                 key={note.id}
-                style={{
-                  backgroundColor:
-                    note.grade > 10 ? "lightgreen" : "lightcoral",
-                }}
+                className={note.grade > 10 ? "high-grade" : "low-grade"}
               >
                 <td>{note.courseName}</td>
                 <td>{note.grade}</td>
@@ -74,8 +72,15 @@ const StudentDetails = () => {
           </tbody>
         </table>
       )}
- 
-      {student && <Link to={`/student/${student.id}/add-note`}>Add Note</Link>}
+
+      <div className="action-links">
+        <Link to={`/student/${student.id}/add-note`} className="btn-primary">
+          Add Note
+        </Link>
+        <Link to="/" className="btn-secondary">
+          Home
+        </Link>
+      </div>
     </div>
   );
 };

@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../index.css";
 
 const Home = () => {
-  const [student, setStudent] = useState(""); 
-  const [students, setStudents] = useState([]); 
-  const [averages, setAverages] = useState({}); 
+  const [student, setStudent] = useState("");
+  const [students, setStudents] = useState([]);
+  const [averages, setAverages] = useState({});
 
   useEffect(() => {
     axios
       .get("http://localhost:8080/students")
       .then((response) => {
-        setStudents(response.data); 
+        setStudents(response.data);
       })
       .catch((error) => {
         console.error("Error fetching students:", error);
@@ -32,7 +33,7 @@ const Home = () => {
       return total / grades.length;
     } catch (error) {
       console.error("Error fetching grades:", error);
-      return 0; 
+      return 0;
     }
   };
 
@@ -59,14 +60,14 @@ const Home = () => {
     if (name) {
       const newStudent = {
         name,
-        creationDate: new Date().toISOString().split("T")[0], 
+        creationDate: new Date().toISOString().split("T")[0],
       };
 
       axios
         .post("http://localhost:8080/students", newStudent)
         .then((response) => {
           setStudents((prevStudents) => [...prevStudents, response.data]);
-          setStudent(""); 
+          setStudent("");
         })
         .catch((error) => {
           console.error("Error adding student:", error);
@@ -75,10 +76,10 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <h1>Student List</h1>
+    <div className="home-container">
+      <h1 className="title">Students</h1>
 
-      <table border="1" cellPadding="10">
+      <table className="student-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -88,16 +89,20 @@ const Home = () => {
         </thead>
         <tbody>
           {students.map((student) => {
-            const average = parseFloat(averages[student.id]).toFixed(2); 
+            const average = parseFloat(averages[student.id]).toFixed(2);
             return (
               <tr
                 key={student.id}
-                style={{
-                  backgroundColor: average > 10 ? "lightgreen" : "lightcoral",
-                }}
+                className={
+                  average > 10
+                    ? "student-row high-grade"
+                    : "student-row low-grade"
+                }
               >
                 <td>
-                  <Link to={`/student/${student.id}`}>{student.name}</Link>
+                  <Link to={`/student/${student.id}`} className="student-link">
+                    {student.name}
+                  </Link>
                 </td>
                 <td>
                   {student.creationDate[0]}/{student.creationDate[1]}/
@@ -109,15 +114,20 @@ const Home = () => {
           })}
         </tbody>
       </table>
-      <div>
+
+      <div className="add-student-container">
         <input
           type="text"
           id="student"
           name="student"
           value={student}
           onChange={handleInputChange}
+          placeholder="Enter student name"
+          className="student-input"
         />
-        <button onClick={() => addStudent(student)}>Add Student</button>
+        <button onClick={() => addStudent(student)} className="btn-primary">
+          Add Student
+        </button>
       </div>
     </div>
   );

@@ -15,3 +15,163 @@ body {
   font-size: 24px;
   margin: 0;
 }
+/* Common Container Styles */
+.home-container,
+.add-note-container,
+.student-details-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-note-container {
+  max-width: 500px;
+}
+
+.student-details-container {
+  max-width: 700px;
+}
+
+/* Title Style */
+.title {
+  text-align: center;
+  color: #333;
+  font-family: "Arial", sans-serif;
+  margin-bottom: 20px;
+}
+
+/* Table Styles */
+.student-table,
+.grades-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.student-table th,
+.student-table td,
+.grades-table th,
+.grades-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+/* Row Coloring */
+.student-row.high-grade,
+.high-grade {
+  background-color: #d4edda;
+}
+
+.student-row.low-grade,
+.low-grade {
+  background-color: #f8d7da;
+}
+
+/* Student Link Styles */
+.student-link {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.student-link:hover {
+  text-decoration: underline;
+}
+
+/* Add Student Container */
+.add-student-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.student-input {
+  flex: 1;
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Form Styles */
+.note-form .form-group {
+  margin-bottom: 15px;
+}
+
+.note-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.note-form input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary {
+  display: inline-block;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #4caf50;
+}
+
+.btn-secondary:hover {
+  background-color: #45a049;
+}
+
+/* Additional Button Specifics */
+.navigation-links {
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Error and Loading States */
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #007bff;
+}
+
+.error-message {
+  text-align: center;
+  font-size: 18px;
+  color: #ff4d4f;
+}
+
+.no-data,
+.no-grades {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Action Links */
+.action-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}

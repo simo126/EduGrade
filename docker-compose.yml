@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  postgres_db:
+    image: localhost:5000/postgres:17-bullseye
+    container_name: postgres_db
+    networks:
+      - edugrade_network
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  edugrade_backend:
+    image: localhost:5000/edugrade_backend:1.0
+    container_name: edugrade_backend
+    networks:
+      - edugrade_network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - postgres_db
+    ports:
+      - "8080:8080"
+
+  edugrade_frontend:
+    image: localhost:5000/edugrade_frontend:1.0
+    container_name: edugrade_frontend
+    networks:
+      - edugrade_network
+    depends_on:
+      - edugrade_backend
+    ports:
+      - "5173:80"
+
+  registry:
+    image: registry:2
+    container_name: registry
+    networks:
+      - edugrade_network
+    ports:
+      - "5000:5000"
+    volumes:
+      - registry_data:/var/lib/registry
+    restart: always
+    environment:
+      REGISTRY_STORAGE_DELETE_ENABLED: "true"
+
+networks:
+  edugrade_network:
+    external: true # Use the existing network
+
+volumes:
+  postgres_data: # Volume for PostgreSQL database persistence
+  registry_data: # Volume for Docker Registry persistence

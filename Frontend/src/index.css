@@ -15,7 +15,7 @@ body {
   font-size: 24px;
   margin: 0;
 }
-/* Common Container Styles */
+
 .home-container,
 .add-note-container,
 .student-details-container {
@@ -35,7 +35,7 @@ body {
   max-width: 700px;
 }
 
-/* Title Style */
+
 .title {
   text-align: center;
   color: #333;
@@ -43,7 +43,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* Table Styles */
 .student-table,
 .grades-table {
   width: 100%;
@@ -60,7 +59,7 @@ body {
   text-align: center;
 }
 
-/* Row Coloring */
+
 .student-row.high-grade,
 .high-grade {
   background-color: #d4edda;
@@ -71,7 +70,7 @@ body {
   background-color: #f8d7da;
 }
 
-/* Student Link Styles */
+
 .student-link {
   text-decoration: none;
   color: #007bff;
@@ -81,7 +80,6 @@ body {
   text-decoration: underline;
 }
 
-/* Add Student Container */
 .add-student-container {
   display: flex;
   justify-content: space-between;
@@ -96,7 +94,6 @@ body {
   border-radius: 4px;
 }
 
-/* Form Styles */
 .note-form .form-group {
   margin-bottom: 15px;
 }
@@ -115,7 +112,6 @@ body {
   border-radius: 4px;
 }
 
-/* Buttons */
 .btn-primary,
 .btn-secondary {
   display: inline-block;
@@ -143,13 +139,13 @@ body {
   background-color: #45a049;
 }
 
-/* Additional Button Specifics */
+
 .navigation-links {
   text-align: center;
   margin-top: 15px;
 }
 
-/* Error and Loading States */
+
 .loading {
   text-align: center;
   font-size: 18px;
@@ -169,7 +165,6 @@ body {
   color: #666;
 }
 
-/* Action Links */
 .action-links {
   display: flex;
   justify-content: space-between;

@@ -7,10 +7,10 @@ const Home = () => {
   const [student, setStudent] = useState("");
   const [students, setStudents] = useState([]);
   const [averages, setAverages] = useState({});
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     axios
-      .get("http://localhost:8080/students")
+      .get(`${backendUrl}/students`)
       .then((response) => {
         setStudents(response.data);
       })
@@ -22,7 +22,7 @@ const Home = () => {
   const calculateAverage = async (studentId) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/students/${studentId}/notes`
+        `${backendUrl}/students/${studentId}/notes`
       );
       const grades = response.data;
 
@@ -64,7 +64,7 @@ const Home = () => {
       };
 
       axios
-        .post("http://localhost:8080/students", newStudent)
+        .post(`${backendUrl}/students`, newStudent)
         .then((response) => {
           setStudents((prevStudents) => [...prevStudents, response.data]);
           setStudent("");

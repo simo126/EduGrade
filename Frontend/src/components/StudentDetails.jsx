@@ -9,17 +9,17 @@ const StudentDetails = () => {
   const [grades, setGrades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     setError(null);
     setLoading(true);
 
     axios
-      .get(`http://localhost:8080/students/${id}`)
+      .get(`${backendUrl}/students/${id}`)
       .then((response) => {
         const studentData = response.data;
         setStudent(studentData);
-        return axios.get(`http://localhost:8080/students/${id}/notes`);
+        return axios.get(`${backendUrl}/students/${id}/notes`);
       })
       .then((response) => {
         setGrades(response.data);

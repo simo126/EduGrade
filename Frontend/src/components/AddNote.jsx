@@ -4,6 +4,7 @@ import axios from "axios";
 import "../index.css";
 
 const AddNote = () => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -17,7 +18,7 @@ const AddNote = () => {
     };
 
     axios
-      .post(`http://localhost:8080/students/${id}/notes`, newNote)
+      .post(`${backendUrl}/students/${id}/notes`, newNote)
       .then(() => {
         navigate(`/student/${id}`);
       })

@@ -11,9 +11,15 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins(
-            "http://app.edugrade.local","http://app.edugrade.com",
-            "http://edugrade.com","http://localhost:5173"
-        );
+        registry.addMapping("/**")
+                .allowedOrigins(
+                    "http://app.edugrade.local",
+                    "http://app.edugrade.com",
+                    "http://edugrade.com",
+                    "http://localhost:5173"
+                )
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow necessary HTTP methods
+                .allowedHeaders("*") // Allow all headers
+                .allowCredentials(true); // Allow credentials (if needed)
     }
 }

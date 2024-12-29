@@ -1,3 +1,4 @@
+
 version: "3.8"
 
 services:
@@ -8,12 +9,12 @@ services:
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
     ports:
-      - "80:80" # Exposes HTTP on port 80
-      - "8080:8080" # Traefik dashboard
+      - "80:80"  
+      - "8080:8080"  
     networks:
       - edugrade_network
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock # Required for Traefik to communicate with Docker
+      - /var/run/docker.sock:/var/run/docker.sock  
 
   postgres_db:
     image: localhost:5000/postgres:17-bullseye
@@ -71,3 +72,79 @@ networks:
 volumes:
   postgres_data:
     external: true
+
+
+
+# version: "3.8"
+
+# services:
+#   traefik:
+#     image: traefik:v2.10
+#     command:
+#       - "--api.insecure=true"
+#       - "--providers.docker=true"
+#       - "--entrypoints.web.address=:80"
+#     ports:
+#       - "80:80" # Exposes HTTP on port 80
+#       - "8080:8080" # Traefik dashboard
+#     networks:
+#       - edugrade_network
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock # Required for Traefik to communicate with Docker
+
+#   postgres_db:
+#     image: localhost:5000/postgres:17-bullseye
+#     networks:
+#       - edugrade_network
+#     environment:
+#       POSTGRES_USER: 12345678
+#       POSTGRES_PASSWORD: postgres
+#       POSTGRES_DB: student_db
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     deploy:
+#       replicas: 1
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.postgres.rule=Host(`db.example.com`)"
+#       - "traefik.http.services.postgres.loadbalancer.server.port=5432"
+
+#   edugrade_backend:
+#     image: localhost:5000/edugrade_backend:1.3
+#     networks:
+#       - edugrade_network
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/student_db
+#       SPRING_DATASOURCE_USERNAME: postgres
+#       SPRING_DATASOURCE_PASSWORD: 12345678
+#     ports:
+#       - "8081:8080"
+#     deploy:
+#       replicas: 1
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.backend.rule=Host(`api.edugrade.com`)"
+#       - "traefik.http.services.backend.loadbalancer.server.port=8080"
+
+#   edugrade_frontend:
+#     image: localhost:5000/edugrade_frontend:1.2
+#     networks:
+#       - edugrade_network
+#     ports:
+#       - "5173:80"
+#     deploy:
+#       replicas: 1
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.frontend.rule=Host(`app.edugrade.com`)"
+#       - "traefik.http.services.frontend.loadbalancer.server.port=80"
+
+# networks:
+#   edugrade_network:
+#     external: true
+
+# volumes:
+#   postgres_data:
+#     external: true

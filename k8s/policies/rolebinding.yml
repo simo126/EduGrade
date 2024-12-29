@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: exam-rolebinding
+  namespace: exam
+subjects:
+  - kind: User 
+    name: Sbaiti Mohammed 
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: exam-role
+  apiGroup: rbac.authorization.k8s.io
